@@ -36,12 +36,12 @@ class Base64ImageField(serializers.ImageField):
         return extension
 
 class GroupSerializer(serializers.ModelSerializer):
-    grp_profile_pic = Base64ImageField(required=False)
-    grp_display_pic = Base64ImageField(required=False)
+    profile_pic = Base64ImageField(required=False)
+    display_pic = Base64ImageField(required=False)
     posts_in_group = serializers.SlugRelatedField(many=True, slug_field='post_group', queryset=Post.objects.all())
     class Meta:
         model = Group
-        fields = ['id', 'grp_name', 'grp_profile_pic', 'grp_display_pic', 'grp_description', 'grp_email', 'grp_website', 'grp_created_at', 'grp_members', 'posts_in_group']
+        fields = ['id', 'name', 'profile_pic', 'display_pic', 'description', 'email', 'website', 'created_at', 'members', 'posts_in_group']
 
 class CaseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,10 +49,10 @@ class CaseSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class EventSerializer(serializers.ModelSerializer):
-    event_image = Base64ImageField(required=False)
+    image = Base64ImageField(required=False)
     class Meta:
         model = Event
-        fields = ['id', 'event_name', 'event_description', 'event_image', 'event_date', 'event_time', 'event_venue', 'event_slots', 'event_users', 'event_created_at']
+        fields = ['id', 'name', 'description', 'image', 'date', 'time', 'venue', 'slots', 'users', 'created_at']
 
 class CertificateSerializer(serializers.ModelSerializer):
     cert_image = Base64ImageField()
@@ -108,14 +108,14 @@ class AchievementSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     reports = serializers.SlugRelatedField(many=True, required=False, slug_field='report_description', queryset=Report.objects.all())
-    cases = CaseSerializer(source='case_description', many=True, required=False)
-    groups = GroupSerializer(source='grp_name', many=True, required=False)
+    cases = CaseSerializer(source='description', many=True, required=False)
+    groups = GroupSerializer(source='name', many=True, required=False)
     posts = serializers.SlugRelatedField(required=False, many=True, slug_field='post_body', queryset=Post.objects.all())
     saves = serializers.SlugRelatedField(required=False, many=True, slug_field='save_post', queryset=PostSave.objects.all())
     votes = serializers.SlugRelatedField(required=False, many=True, slug_field='vote_post', queryset=PostVote.objects.all())
     comments = serializers.SlugRelatedField(required=False, many=True, slug_field='comment_content', queryset=Comment.objects.all())
     achievements = AchievementSerializer(required=False, source='achv_name', many=True)
-    events = EventSerializer(source='event_name', many=True, required=False)
+    events = EventSerializer(source='name', many=True, required=False)
     certificates = serializers.SlugRelatedField(required=False, many=True, slug_field='cert_cert_type', queryset=Certificate.objects.all())
     awarded = serializers.SlugRelatedField(required=False, many=True, slug_field='awcert_cert_type', queryset=AwardedCertificate.objects.all())
     class Meta:

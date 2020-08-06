@@ -39,14 +39,14 @@ class Report(models.Model):
     )
 
 class Case(models.Model):
-    case_location = models.CharField(max_length=600)
-    case_lattitude = models.FloatField()
-    case_longitude = models.FloatField()
-    case_time = models.DateField(auto_now_add=True, editable=True)
-    case_description = models.CharField(max_length=600)
-    case_updated_at = models.DateTimeField(auto_now=True, editable=True) #default setting editable=False, blank=True
+    location = models.CharField(max_length=600)
+    lattitude = models.FloatField()
+    longitude = models.FloatField()
+    time = models.DateField(auto_now_add=True, editable=True)
+    description = models.CharField(max_length=600)
+    updated_at = models.DateTimeField(auto_now=True, editable=True) #default setting editable=False, blank=True
     #many-to-many rs
-    case_members = models.ManyToManyField(Profile, related_name='cases', blank=True)
+    users = models.ManyToManyField(Profile, related_name='cases', blank=True)
 
     CASE_TYPES = (
         ('c', 'Cardiac Arrest'),
@@ -61,14 +61,14 @@ class Case(models.Model):
 # a case can be shown to many users 
 
 class Group(models.Model):
-    grp_profile_pic = models.ImageField(upload_to=None, null=True)
-    grp_display_pic = models.ImageField(upload_to=None, null=True)
-    grp_name = models.CharField(max_length=50)
-    grp_description = models.CharField(max_length=300)
-    grp_email = models.EmailField(max_length=254, blank=True, null=True)
-    grp_website = models.CharField(max_length=155)
-    grp_members = models.ManyToManyField(Profile, related_name='groups', blank=True)
-    grp_created_at= models.DateTimeField(auto_now_add=True, editable=True)
+    profile_pic = models.ImageField(upload_to=None, null=True)
+    display_pic = models.ImageField(upload_to=None, null=True)
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=300)
+    email = models.EmailField(max_length=254, blank=True, null=True)
+    website = models.CharField(max_length=155)
+    members = models.ManyToManyField(Profile, related_name='groups', blank=True)
+    created_at= models.DateTimeField(auto_now_add=True, editable=True)
     #updated_at = models.DateTimeField(auto_now=True, editable=True) #default setting editable=False, blank=True
 
 class Post(models.Model):
@@ -104,15 +104,15 @@ class AchievementReward(models.Model):
     rew_reward = models.ImageField(upload_to=None, null=True)
 
 class Event(models.Model):
-    event_slots = models.IntegerField()
-    event_image = models.ImageField(upload_to=None, null=True)
-    event_name = models.CharField(max_length=50)
-    event_description = models.CharField( max_length=500)
-    event_date = models.DateField()
-    event_time = models.TimeField()
-    event_venue = models.CharField(max_length=200)
-    event_created_at = models.DateTimeField(auto_now_add=True, editable=True)
-    event_users = models.ManyToManyField(Profile, related_name='events', blank=True)   
+    slots = models.IntegerField()
+    image = models.ImageField(upload_to=None, null=True)
+    name = models.CharField(max_length=50)
+    description = models.CharField( max_length=500)
+    date = models.DateField()
+    time = models.TimeField()
+    venue = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True, editable=True)
+    users = models.ManyToManyField(Profile, related_name='events', blank=True)   
 
 class Certificate(models.Model):
     cert_user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='certificates', null=True)
