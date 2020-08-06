@@ -65,11 +65,6 @@ class AwardedCertificateSerializer(serializers.ModelSerializer):
         model = AwardedCertificate
         fields = '__all__'
 
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
-        fields = '__all__'
-
 class PostSaveSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostSave
@@ -106,6 +101,12 @@ class AchievementSerializer(serializers.ModelSerializer):
         model = Achievement
         fields = ['achv_name', 'achv_condition', 'achv_created_at', 'reward', 'achv_users']
 
+class CommentSerializer(serializers.ModelSerializer):
+    comment_user = serializers.SlugRelatedField(slug_field='profile_name', queryset=Profile.objects.all())
+    class Meta:
+        model = Comment
+        fields = ['comment_post', 'comment_user', 'comment_content', 'comment_date']
+
 class ProfileSerializer(serializers.ModelSerializer):
     reports = serializers.SlugRelatedField(many=True, required=False, slug_field='report_description', queryset=Report.objects.all())
     cases = CaseSerializer(many=True, required=False)
@@ -133,4 +134,3 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ['id', 'post_body', 'post_image', 'post_date', 'post_user', 'post_group', 'user_who_saved', 'user_who_voted', 'vote_count', 'user_who_commented', 'comment_count']
-
