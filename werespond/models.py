@@ -24,7 +24,7 @@ class Report(models.Model):
     report_user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, related_name='reports') #one-to-many rs
     report_location = models.CharField(max_length=250)
     report_description = models.CharField(max_length=250)
-    report_image = models.ImageField(upload_to=None, blank=True)
+    report_image = models.ImageField(upload_to=None, null=True, blank=True)
     report_date = models.DateTimeField(auto_now_add=True, editable=True)
 
     REPORT_TYPES = (
@@ -61,8 +61,8 @@ class Case(models.Model):
 # a case can be shown to many users 
 
 class Group(models.Model):
-    profile_pic = models.ImageField(upload_to=None, blank=True)
-    display_pic = models.ImageField(upload_to=None, blank=True)
+    profile_pic = models.ImageField(upload_to=None, null=True, blank=True)
+    display_pic = models.ImageField(upload_to=None, null=True, blank=True)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=300)
     email = models.EmailField(max_length=254, blank=True, null=True)
@@ -75,7 +75,7 @@ class Post(models.Model):
     post_user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="posts", null=True)
     post_group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, related_name="posts_in_group")
     post_body = models.CharField(max_length=1000)
-    post_image = models.ImageField(upload_to=None, blank=True)
+    post_image = models.ImageField(upload_to=None, null=True, blank=True)
     post_date= models.DateTimeField(auto_now_add=True, editable=True)
     #updated_at = models.DateTimeField("Updated At", auto_now=True, editable=True) #default setting editable=False, blank=True
 
@@ -105,7 +105,7 @@ class AchievementReward(models.Model):
 
 class Event(models.Model):
     slots = models.IntegerField()
-    image = models.ImageField(upload_to=None, blank=True)
+    image = models.ImageField(upload_to=None, null=True, blank=True)
     name = models.CharField(max_length=50)
     description = models.CharField( max_length=500)
     date = models.DateField()
