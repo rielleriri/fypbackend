@@ -104,7 +104,7 @@ class AchievementSerializer(serializers.ModelSerializer):
     reward = AchievementRewardSerializer(read_only=True)
     class Meta:
         model = Achievement
-        fields = ['achv_name', 'achv_condition', 'achv_created_at', 'reward', 'achv_user']
+        fields = ['achv_name', 'achv_condition', 'achv_created_at', 'reward', 'achv_users']
 
 class ProfileSerializer(serializers.ModelSerializer):
     reports = serializers.SlugRelatedField(many=True, required=False, slug_field='report_description', queryset=Report.objects.all())
