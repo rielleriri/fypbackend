@@ -38,10 +38,10 @@ class Base64ImageField(serializers.ImageField):
 class GroupSerializer(serializers.ModelSerializer):
     grp_profile_pic = Base64ImageField(required=False)
     grp_display_pic = Base64ImageField(required=False)
-    posts = serializers.SlugRelatedField(many=True, slug_field='post_group', queryset=Post.objects.all())
+    posts_in_group = serializers.SlugRelatedField(many=True, slug_field='post_group', queryset=Post.objects.all())
     class Meta:
         model = Group
-        fields = ['id', 'grp_name', 'grp_profile_pic', 'grp_display_pic', 'grp_description', 'grp_email', 'grp_website', 'grp_created_at', 'grp_members', 'posts']
+        fields = ['id', 'grp_name', 'grp_profile_pic', 'grp_display_pic', 'grp_description', 'grp_email', 'grp_website', 'grp_created_at', 'grp_members', 'posts_in_group']
 
 class CaseSerializer(serializers.ModelSerializer):
     class Meta:

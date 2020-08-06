@@ -73,7 +73,7 @@ class Group(models.Model):
 
 class Post(models.Model):
     post_user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="posts", null=True)
-    post_group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True)
+    post_group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, related_name="posts_in_group")
     post_body = models.CharField(max_length=1000)
     post_image = models.ImageField(upload_to=None, null=True, blank=True)
     post_date= models.DateTimeField(auto_now_add=True, editable=True)
