@@ -43,7 +43,7 @@ class Case(models.Model):
     lattitude = models.FloatField()
     longitude = models.FloatField()
     time = models.DateField(auto_now_add=True, editable=True)
-    description = models.CharField(max_length=600, blank=True)
+    description = models.CharField(max_length=600, blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, editable=True) #default setting editable=False, blank=True
     #many-to-many rs
     users = models.ManyToManyField(Profile, related_name='cases', blank=True)
