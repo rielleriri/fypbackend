@@ -36,8 +36,8 @@ class Base64ImageField(serializers.ImageField):
         return extension
 
 class GroupSerializer(serializers.ModelSerializer):
-    grp_profile_pic = Base64ImageField()
-    grp_display_pic = Base64ImageField()
+    grp_profile_pic = Base64ImageField(required=False)
+    grp_display_pic = Base64ImageField(required=False)
     posts = serializers.SlugRelatedField(many=True, slug_field='post_group', queryset=Post.objects.all())
     class Meta:
         model = Group
@@ -49,7 +49,7 @@ class CaseSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class EventSerializer(serializers.ModelSerializer):
-    event_image = Base64ImageField()
+    event_image = Base64ImageField(required=False)
     class Meta:
         model = Event
         fields = ['id', 'event_name', 'event_description', 'event_image', 'event_date', 'event_time', 'event_venue', 'event_slots', 'event_users', 'event_created_at']
@@ -123,7 +123,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ['profile_hp', 'profile_name', 'profile_gender', 'is_scdf', 'profile_email', 'profile_created_at', 'reports', 'cases', 'groups', 'posts', 'saves', 'votes', 'comments', 'achievements', 'events', 'certificates', 'awarded']
 
 class PostSerializer(serializers.ModelSerializer):
-    post_image = Base64ImageField(max_length=None, use_url=True)
+    post_image = Base64ImageField(max_length=None, use_url=True, required=False)
     user_who_saved = serializers.SlugRelatedField(required=False, many=True, slug_field='save_user', queryset=PostSave.objects.all())
     user_who_voted = serializers.SlugRelatedField(required=False, many=True, slug_field='vote_user', queryset=PostVote.objects.all())
     user_who_commented = CommentSerializer(read_only=True, many=True, required=False) # to list out all comments
