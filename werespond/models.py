@@ -61,8 +61,8 @@ class Case(models.Model):
 # a case can be shown to many users 
 
 class Group(models.Model):
-    profile_pic = models.ImageField(upload_to=None, null=True)
-    display_pic = models.ImageField(upload_to=None, null=True)
+    profile_pic = models.ImageField(upload_to=None, blank=True)
+    display_pic = models.ImageField(upload_to=None, blank=True)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=300)
     email = models.EmailField(max_length=254, blank=True, null=True)
@@ -75,7 +75,7 @@ class Post(models.Model):
     post_user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="posts", null=True)
     post_group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, related_name="posts_in_group")
     post_body = models.CharField(max_length=1000)
-    post_image = models.ImageField(upload_to=None, null=True, blank=True)
+    post_image = models.ImageField(upload_to=None, blank=True)
     post_date= models.DateTimeField(auto_now_add=True, editable=True)
     #updated_at = models.DateTimeField("Updated At", auto_now=True, editable=True) #default setting editable=False, blank=True
 
@@ -101,11 +101,11 @@ class Achievement(models.Model):
 
 class AchievementReward(models.Model):
     rew_achievement = models.OneToOneField(Achievement, on_delete=models.CASCADE, primary_key=True)
-    rew_reward = models.ImageField(upload_to=None, null=True)
+    rew_reward = models.ImageField(upload_to=None, blank=True)
 
 class Event(models.Model):
     slots = models.IntegerField()
-    image = models.ImageField(upload_to=None, null=True)
+    image = models.ImageField(upload_to=None, blank=True)
     name = models.CharField(max_length=50)
     description = models.CharField( max_length=500)
     date = models.DateField()
@@ -129,7 +129,7 @@ class Certificate(models.Model):
         max_length=1,
         choices=CERT_TYPES,
     )
-    cert_image = models.ImageField(upload_to=None, null=True)
+    cert_image = models.ImageField(upload_to=None, blank=True)
     cert_expiry = models.DateField()
 
 class AwardedCertificate(models.Model):

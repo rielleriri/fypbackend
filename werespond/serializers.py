@@ -38,7 +38,7 @@ class Base64ImageField(serializers.ImageField):
 class GroupSerializer(serializers.ModelSerializer):
     profile_pic = Base64ImageField(required=False)
     display_pic = Base64ImageField(required=False)
-    posts_in_group = serializers.SlugRelatedField(many=True, slug_field='post_group', queryset=Post.objects.all())
+    posts_in_group = serializers.SlugRelatedField(many=True, slug_field='post_group', queryset=Post.objects.all(), required=False)
     class Meta:
         model = Group
         fields = ['id', 'name', 'profile_pic', 'display_pic', 'description', 'email', 'website', 'created_at', 'members', 'posts_in_group']
@@ -55,7 +55,7 @@ class EventSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description', 'image', 'date', 'time', 'venue', 'slots', 'users', 'created_at']
 
 class CertificateSerializer(serializers.ModelSerializer):
-    cert_image = Base64ImageField()
+    cert_image = Base64ImageField(required=False)
     class Meta:
         model = Certificate
         fields = ['cert_cert_type', 'cert_user', 'cert_image', 'cert_expiry']
@@ -81,7 +81,7 @@ class PostVoteSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ReportSerializer(serializers.ModelSerializer):
-    report_image=Base64ImageField()
+    report_image=Base64ImageField(required=False)
     class Meta:
         model = Report
         fields = ['report_location', 'report_description', 'report_image', 'report_user', 'report_date']
@@ -95,7 +95,7 @@ class ReportSerializer(serializers.ModelSerializer):
     #     return MyImageModel.objects.create(report_location=report_location, report_description=report_description, report_image=report_image, report_date=report_date)
 
 class AchievementRewardSerializer(serializers.ModelSerializer):
-    rew_reward = Base64ImageField()
+    rew_reward = Base64ImageField(required=False)
     class Meta:
         model = AchievementReward
         fields = ['rew_achievement', 'rew_reward']
