@@ -108,14 +108,14 @@ class AchievementSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     reports = serializers.SlugRelatedField(many=True, required=False, slug_field='report_description', queryset=Report.objects.all())
-    cases = serializers.PrimaryKeyRelatedField(queryset=Case.objects.all(), many=True, required=False)
-    groups = serializers.PrimaryKeyRelatedField(queryset=Group.objects.all(), many=True, required=False)
+    cases = CaseSerializer(many=True, required=False)
+    groups = GroupSerializer( many=True, required=False)
     posts = serializers.SlugRelatedField(required=False, many=True, slug_field='post_body', queryset=Post.objects.all())
     saves = serializers.SlugRelatedField(required=False, many=True, slug_field='save_post', queryset=PostSave.objects.all())
     votes = serializers.SlugRelatedField(required=False, many=True, slug_field='vote_post', queryset=PostVote.objects.all())
     comments = serializers.SlugRelatedField(required=False, many=True, slug_field='comment_content', queryset=Comment.objects.all())
     achievements = AchievementSerializer(required=False, source='achv_name', many=True)
-    events = serializers.PrimaryKeyRelatedField(queryset=Event.objects.all(), many=True, required=False)
+    events = EventSerializer(many=True, required=False)
     certificates = serializers.SlugRelatedField(required=False, many=True, slug_field='cert_cert_type', queryset=Certificate.objects.all())
     awarded = serializers.SlugRelatedField(required=False, many=True, slug_field='awcert_cert_type', queryset=AwardedCertificate.objects.all())
     class Meta:
