@@ -109,7 +109,7 @@ class AchievementSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     reports = serializers.SlugRelatedField(many=True, required=False, slug_field='report_description', queryset=Report.objects.all())
     cases = CaseSerializer(many=True, required=False)
-    groups = GroupSerializer( many=True, required=False)
+    groups = GroupSerializer(many=True, required=False)
     posts = serializers.SlugRelatedField(required=False, many=True, slug_field='post_body', queryset=Post.objects.all())
     saves = serializers.SlugRelatedField(required=False, many=True, slug_field='save_post', queryset=PostSave.objects.all())
     votes = serializers.SlugRelatedField(required=False, many=True, slug_field='vote_post', queryset=PostVote.objects.all())
@@ -129,7 +129,8 @@ class PostSerializer(serializers.ModelSerializer):
     user_who_commented = CommentSerializer(read_only=True, many=True, required=False) # to list out all comments
     vote_count = serializers.IntegerField(source = 'user_who_voted.count', read_only=True, required=False)
     comment_count = serializers.IntegerField(source = 'user_who_commented.count', read_only=True, required=False)
+    post_user = serializers.SlugRelatedField(slug_field='profile_name', queryset=Profile.objects.all())
     class Meta:
         model = Post
-        fields = ['id', 'post_body', 'post_image', 'post_date', 'post_user', 'user_who_saved', 'user_who_voted', 'vote_count', 'user_who_commented', 'comment_count']
+        fields = ['id', 'post_body', 'post_image', 'post_date', 'post_user', 'post_group', 'user_who_saved', 'user_who_voted', 'vote_count', 'user_who_commented', 'comment_count']
 

@@ -1,7 +1,7 @@
 from .models import Profile, Report, Case, Group, Post, PostSave, PostVote, Comment, AchievementReward, Achievement, Event, Certificate, AwardedCertificate
 from .serializers import GroupSerializer, CaseSerializer, EventSerializer, CertificateSerializer, AwardedCertificateSerializer, CommentSerializer, PostSaveSerializer, PostVoteSerializer, PostSerializer, ReportSerializer, AchievementRewardSerializer, AchievementSerializer, ProfileSerializer
 from rest_framework import viewsets, generics
-from django_filters.rest_framework import DjangoFilterBackend
+from dj_rql.filter_cls import RQLFilterClass
 from rest_framework.parsers import JSONParser, MultiPartParser
 
 class UserListViewSet(viewsets.ModelViewSet):
@@ -55,8 +55,8 @@ class EventListViewSet(viewsets.ModelViewSet):
     queryset=Event.objects.all()
     serializer_class=EventSerializer
     parser_classes = (MultiPartParser, JSONParser)
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['users']
+    # filter_backends = [DjangoFilterBackend]
+    # filterset_fields = ['users']
 
 class AchievementListViewSet(viewsets.ModelViewSet):
     queryset=Achievement.objects.all()
