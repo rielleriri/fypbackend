@@ -74,7 +74,7 @@ class Group(models.Model):
 class Post(models.Model):
     post_user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name="posts", null=True)
     post_group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, related_name="posts_in_group")
-    post_body = models.CharField(max_length=1000)
+    post_body = models.CharField(max_length=3000)
     post_image = models.ImageField(upload_to=None, null=True, blank=True)
     post_date= models.DateTimeField(auto_now_add=True, editable=True)
     #updated_at = models.DateTimeField("Updated At", auto_now=True, editable=True) #default setting editable=False, blank=True
@@ -90,7 +90,7 @@ class PostVote(models.Model):
 class Comment(models.Model):
     comment_post = models.ForeignKey(Post, related_name='user_who_commented', on_delete=models.CASCADE, null=True)
     comment_user = models.ForeignKey(Profile, related_name='comments', on_delete=models.CASCADE, null=True)
-    comment_content = models.CharField(max_length=300)
+    comment_content = models.CharField(max_length=3000)
     comment_date= models.DateTimeField(auto_now_add=True, editable=True)
 
 class Achievement(models.Model):
